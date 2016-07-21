@@ -18,14 +18,14 @@
                             {
                                 "command": "open_file", "args":
                                 {
-                                    "file": "${packages}/Tamarin/Tamarin.sublime-settings"
+                                    "file": "${packages}/SublimeTamarin/Tamarin.sublime-settings"
                                 },
                                 "caption": "Settings – Default"
                             },
                             {
                                 "command": "open_file", "args":
                                 {
-                                    "file": "${packages}/User/Tamarin.sublime-settings"
+                                    "file": "${packages}/User/SublimeTamarin.sublime-settings"
                                 },
                                 "caption": "Settings – User"
                             },

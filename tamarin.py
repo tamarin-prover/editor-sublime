@@ -1,5 +1,10 @@
 import sublime
 import sublime_plugin
+import json
+import os
+import platform
+import time
+import subprocess
 
 
 def settings_get(name, default=None):
@@ -7,7 +12,6 @@ def settings_get(name, default=None):
     project_settings = None
     if sublime.active_window() and sublime.active_window().active_view():
         project_settings = sublime.active_window().active_view().settings()
-        .get("tamarin")
 
     if project_settings is None:
         project_settings = {}
@@ -39,8 +43,8 @@ def get_spthy_file(view):
         return view.file_name()
 
 
-class TamarinRunProveCommand(sublime_plugin.WindowCommand):
-    """ Runs tamarin --prove with the active
+class TamarinProveCommand(sublime_plugin.WindowCommand):
+    """ Runs tamarin-prover --prove with the active script
     """
     def is_enabled(self):
         return is_tamarin_view(self.window.active_view())
@@ -50,7 +54,30 @@ class TamarinRunProveCommand(sublime_plugin.WindowCommand):
         if view is None:
             return
         tamarin = find_tamarin_bin("tamarin-prover")
+        self.window.run_command("hide_panel", {"panel": "output.textarea"})
+        self.output_view = self.window.get_output_panel("textarea")
+        self.output_view.set_read_only(True)
+        self.window.run_command("show_panel", {"panel": "output.textarea"})
         subprocess.Popen([tamarin, '--prove', get_spthy_file(view)])
+
+
+class TamarinProveInteractiveCommand(sublime_plugin.WindowCommand):
+    """ Runs tamarin-prover --prove with the active script
+    """
+    def is_enabled(self):
+        return is_tamarin_view(self.window.active_view())
+
+    def run(self):
+        view = self.window.active_view()
+        if view is None:
+            return
+        tamarin = find_tamarin_bin("tamarin-prover")
+        self.window.run_command(edit, "hide_panel", {"panel": "output.textarea"})
+        self.output_view = self.window.get_output_panel("textarea")
+        self.output_view.set_read_only(True)
+        self.window.run_command("show_panel", {"panel": "output.textarea"})
+        view.window().run_command(edit, "tamarin_prove_interactive")
+        subprocess.Popen([tamarin, 'interactive', '--prove', get_spthy_file(view)])
 
 
 def find_tamarin_bin(binary):
@@ -64,20 +91,20 @@ def find_tamarin_bin(binary):
 
     if is_mac():
         search_paths += os.getenv("PATH").split(os.pathsep)
-        search_paths += ["$HOME/.local/bin/"]
+        search_paths += ["~/.local/bin/"]
     elif is_windows():
         binary += ".exe"
         search_paths += []
     elif is_linux():
         search_paths += os.getenv("PATH").split(os.pathsep)
-        search_paths += ["$HOME/.local/bin/"]
+        search_paths += ["~/.local/bin/"]
 
     for path in search_paths:
         path = path.strip('"')
-        exe_file = os.path.join(os.path.expanduser(path), program)
+        exe_file = os.path.join(os.path.expanduser(path), binary)
         if is_exe(exe_file):
             return exe_file
 
     raise Exception("Cannot find %s executable in %s. Set tamarin_bin_dir."
         \
-                    % (program, search_paths))
+                    % (binary, search_paths))
