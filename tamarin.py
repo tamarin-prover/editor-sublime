@@ -7,8 +7,14 @@ import time
 import subprocess
 
 
+LOCAL = '/usr/local/bin:/usr/local/sbin'
+
+os.environ['PATH'] += ':'
+os.environ['PATH'] += LOCAL
+
+
 def settings_get(name, default=None):
-    plugin_settings = sublime.load_settings('tamarin.sublime-settings')
+    plugin_settings = sublime.load_settings('Tamarin.sublime-settings')
     project_settings = None
     if sublime.active_window() and sublime.active_window().active_view():
         project_settings = sublime.active_window().active_view().settings()
@@ -43,6 +49,14 @@ def get_spthy_file(view):
         return view.file_name()
 
 
+class TamarinInsertTextCommand(sublime_plugin.TextCommand):
+    """ A helper command to insert text at the end of a buffer.
+    """
+    def run(self, edit, txt, scroll_to_end):
+        self.view.insert(edit, self.view.size(), txt)
+        self.view.show(self.view.size())
+
+
 class TamarinProveCommand(sublime_plugin.WindowCommand):
     """ Runs tamarin-prover --prove with the active script
     """
@@ -53,12 +67,37 @@ class TamarinProveCommand(sublime_plugin.WindowCommand):
         view = self.window.active_view()
         if view is None:
             return
-        tamarin = find_tamarin_bin("tamarin-prover")
         self.window.run_command("hide_panel", {"panel": "output.textarea"})
-        self.output_view = self.window.get_output_panel("textarea")
+        self.output_view = self.window.new_file()
+        self.output_view.set_name("Tamarin Proof")
+        self.output_view.set_scratch(True)
         self.output_view.set_read_only(True)
-        self.window.run_command("show_panel", {"panel": "output.textarea"})
-        subprocess.Popen([tamarin, '--prove', get_spthy_file(view)])
+        self._runner(get_spthy_file(view))
+
+    def _runner(self, spthy):
+        def prove():
+            tamarin = find_tamarin_bin("tamarin-prover")
+            cmd = tamarin + " --prove " + spthy
+            process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+
+            while True:
+                line = process.stdout.readline()
+                if line:
+                    self.output_view.set_read_only(False)
+                    self.output_view.run_command('tamarin_insert_text', {
+                            "txt": line.decode("utf-8"),
+                            "scroll_to_end": True,
+                        })
+                    self.output_view.set_read_only(True)
+                    if not self.output_view.window():
+                        sublime.status_message("Tamarin: cancelled")
+                        process.kill()
+                    self.output_view.set_read_only(False)
+                    # process.communicate()
+                else:
+                    break
+        self.window.focus_view(self.output_view)
+        sublime.set_timeout_async(prove, 0)
 
 
 class TamarinProveInteractiveCommand(sublime_plugin.WindowCommand):
@@ -68,16 +107,7 @@ class TamarinProveInteractiveCommand(sublime_plugin.WindowCommand):
         return is_tamarin_view(self.window.active_view())
 
     def run(self):
-        view = self.window.active_view()
-        if view is None:
-            return
-        tamarin = find_tamarin_bin("tamarin-prover")
-        self.window.run_command(edit, "hide_panel", {"panel": "output.textarea"})
-        self.output_view = self.window.get_output_panel("textarea")
-        self.output_view.set_read_only(True)
-        self.window.run_command("show_panel", {"panel": "output.textarea"})
-        view.window().run_command(edit, "tamarin_prove_interactive")
-        subprocess.Popen([tamarin, 'interactive', '--prove', get_spthy_file(view)])
+        sublime.status_message("DEVELOPMENT")
 
 
 def find_tamarin_bin(binary):
