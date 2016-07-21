@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>contactEmailRot13</key>
+    <string></string>
+    <key>contactName</key>
+    <string>Jorden Whitefield</string>
+    <key>description</key>
+    <string>Bundle that adds syntax support for the Tamarin Prover.</string>
+    <key>name</key>
+    <string>Tamarin</string>
+    <key>uuid</key>
+    <string>A6B019CB-75BF-4D9A-AAB1-703F6B6D143B</string>
+</dict>
+</plist>

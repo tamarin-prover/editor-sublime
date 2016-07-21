@@ -1,0 +1,55 @@
+%YAML 1.2
+---
+# See http://www.sublimetext.com/docs/3/syntax.html
+name: Tamarin
+file_extensions:
+  - spthy
+scope: source.spthy
+contexts:
+  main:
+    # Strings begin and end with quotes, and use backslashes as an escape
+    # character
+    - match: '"'
+      scope: punctuation.definition.string.begin.example-c
+      push: double_quoted_string
+
+    # Comments begin with a '//' and finish at the end of the line
+    - match: '//'
+      scope: punctuation.definition.comment.example-c
+      push: line_comment
+
+    # Keywords are if, else for and while.
+    # Note that blackslashes don't need to be escaped within single quoted
+    # strings in YAML. When using single quoted strings, only single quotes
+    # need to be escaped: this is done by using two single quotes next to each
+    # other.
+    - match: '\b(axiom|lemma|equations|functions|builtins|protocol|property|theory|begin|end|subsection|section|text|rule|h|sk|pk|Fr|In|Out|fr|in|out|pb|lts|diffie-hellman|symmetric-encryption|asymmetric-encryption|exists-trace|all-traces|enable|assertions|modulo|default_rules|anb-proto|in|let|Fresh|fresh|Public|public|signing|hashing|@|&|==>|=|<|=>)\b'
+      scope: keyword.control.spthy
+
+    # Numbers
+    - match: '\b(-)?[0-9.]+\b'
+      scope: constant.numeric.spthy
+
+    # Brackets
+    - match: \(
+      push: brackets
+    - match: \)
+      scope: invalid.illegal.stray-bracket-end
+
+  double_quoted_string:
+    - meta_scope: string.quoted.double.spthy
+    - match: '\\.'
+      scope: constant.character.escape.spthy
+    - match: '"'
+      scope: punctuation.definition.string.end.spthy
+      pop: true
+
+  line_comment:
+    - meta_scope: comment.line.example-c
+    - match: $
+      pop: true
+
+  brackets:
+    - match: \)
+      pop: true
+    - include: main
