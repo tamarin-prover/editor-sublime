@@ -67,7 +67,6 @@ class TamarinProveCommand(sublime_plugin.WindowCommand):
         view = self.window.active_view()
         if view is None:
             return
-        self.window.run_command("hide_panel", {"panel": "output.textarea"})
         self.output_view = self.window.new_file()
         self.output_view.set_name("Tamarin Proof")
         self.output_view.set_scratch(True)
