@@ -5,26 +5,31 @@ name: Tamarin
 file_extensions:
   - spthy
 scope: source.spthy
+variables:
+  identifier_start: '[[:alpha:]_]'
+  identifier: '\b{{identifier_start}}[[:alnum:]_]*\b'
+  path: '\\?({{identifier}}\\)*{{identifier}}'
+  logic: \s*(?:&quot;|#|$|(|)|,|.|:|[|]|{|}|~|&lt;|&gt;|==&gt;|&lt;=&gt;|F|T|All|Ex|\\||&amp;)\b
+
 contexts:
   main:
-    # Strings begin and end with quotes, and use backslashes as an escape
-    # character
+    - include: comments
     - match: '"'
-      scope: punctuation.definition.string.begin.example-c
-      push: double_quoted_string
+      scope: punctuation.definition.string.begin.spthy
 
     # Comments begin with a '//' and finish at the end of the line
     - match: '//'
-      scope: punctuation.definition.comment.example-c
+      scope: punctuation.definition.comment.spthy
       push: line_comment
 
-    # Keywords are if, else for and while.
-    # Note that blackslashes don't need to be escaped within single quoted
-    # strings in YAML. When using single quoted strings, only single quotes
-    # need to be escaped: this is done by using two single quotes next to each
-    # other.
-    - match: '\b(axiom|lemma|equations|functions|builtins|protocol|property|theory|begin|end|subsection|section|text|rule|h|sk|pk|Fr|In|Out|fr|in|out|pb|lts|diffie-hellman|symmetric-encryption|asymmetric-encryption|exists-trace|all-traces|enable|assertions|modulo|default_rules|anb-proto|in|let|Fresh|fresh|Public|public|signing|hashing|@|&|==>|=|<|=>)\b'
-      scope: keyword.control.spthy
+    - match: '\b(axiom|lemma|equations|functions|builtins|protocol|property|theory|begin|end|subsection|section|text|rule|h|sk|pk|Fr|In|Out|fr|in|out|pb|lts|diffie-hellman|symmetric-encryption|asymmetric-encryption|exists-trace|all-traces|enable|assertions|modulo|default_rules|anb-proto|in|let|Fresh|fresh|Public|public|signing|hashing|verify)\b'
+      scope: keyword.other.const.spthy
+
+    - match: '{\||\|}|{|}|\.\.|:|#|<-|<->|==|\!=|<|>|<=|>=|@|&|--\[|\]->|\[|\]'
+      scope: keyword.operator.spthy
+
+    - match: '\b(Ex|All|not)\b'
+      scope: keyword.operator.word.spthy
 
     # Numbers
     - match: '\b(-)?[0-9.]+\b'
@@ -36,6 +41,29 @@ contexts:
     - match: \)
       scope: invalid.illegal.stray-bracket-end
 
+
+  comments:
+    - match: /\*\*/
+      scope: comment.block.empty.spthy punctuation.definition.comment.spthy
+    - include: comments-inline
+  comments-inline:
+    - match: /\*
+      scope: punctuation.definition.comment.spthy
+      push:
+        - meta_scope: comment.block.spthy
+        - match: \*/
+          scope: punctuation.definition.comment.spthy
+          pop: true
+    - match: \s*((//).*$\n?)
+      captures:
+        1: comment.line.double-slash.spthy
+        2: punctuation.definition.comment.spthy
+
+  line_comment:
+    - meta_scope: comment.line.spthy
+    - match: $
+      pop: true
+
   double_quoted_string:
     - meta_scope: string.quoted.double.spthy
     - match: '\\.'
@@ -44,10 +72,6 @@ contexts:
       scope: punctuation.definition.string.end.spthy
       pop: true
 
-  line_comment:
-    - meta_scope: comment.line.example-c
-    - match: $
-      pop: true
 
   brackets:
     - match: \)
