@@ -1,0 +1,7 @@
+{
+
+    // If the plugin is unable to locate tamarin-prover, manually set
+    // the path to the directory containing the tamarin-prover binary.
+    "tamarin_bin_dir": "",
+
+}
