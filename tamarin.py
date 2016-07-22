@@ -80,10 +80,16 @@ class TamarinProveCommand(sublime_plugin.WindowCommand):
             cmd = tamarin + " --prove " + spthy
             process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
 
+            print_sublime_tamarin(self)
+            self.output_view.set_read_only(False)
+            self.output_view.run_command('tamarin_insert_text', {
+                "txt": "$ %s \n\n" % cmd,
+                "scroll_to_end": True,
+            })
+
             while True:
                 line = process.stdout.readline()
                 if line:
-                    self.output_view.set_read_only(False)
                     self.output_view.run_command('tamarin_insert_text', {
                             "txt": line.decode("utf-8"),
                             "scroll_to_end": True,
@@ -96,6 +102,7 @@ class TamarinProveCommand(sublime_plugin.WindowCommand):
                     # process.communicate()
                 else:
                     break
+
         self.window.focus_view(self.output_view)
         self.output_view.set_syntax_file(SYNTAX_FILE)
         sublime.set_timeout_async(prove, 0)
@@ -109,6 +116,23 @@ class TamarinProveInteractiveCommand(sublime_plugin.WindowCommand):
 
     def run(self):
         sublime.status_message("DEVELOPMENT")
+
+
+def print_sublime_tamarin(self):
+
+    MESSAGE = """   _____       _     _ _             _______                         _       
+  / ____|     | |   | (_)           |__   __|                       (_)      
+ | (___  _   _| |__ | |_ _ __ ___   ___| | __ _ _ __ ___   __ _ _ __ _ _ __  
+  \___ \| | | | '_ \| | | '_ ` _ \ / _ \ |/ _` | '_ ` _ \ / _` | '__| | '_ \ 
+  ____) | |_| | |_) | | | | | | | |  __/ | (_| | | | | | | (_| | |  | | | | |
+ |_____/ \__,_|_.__/|_|_|_| |_| |_|\___|_|\__,_|_| |_| |_|\__,_|_|  |_|_| |_|
+"""
+
+    self.output_view.set_read_only(False)
+    self.output_view.run_command('tamarin_insert_text', {
+        "txt": "%s \n\n" % MESSAGE,
+        "scroll_to_end": True,
+    })
 
 
 def find_tamarin_bin(binary):
