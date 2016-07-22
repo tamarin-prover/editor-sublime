@@ -1,26 +1,18 @@
 %YAML 1.2
 ---
-# See http://www.sublimetext.com/docs/3/syntax.html
+
 name: Tamarin
 file_extensions:
   - spthy
 scope: source.spthy
-variables:
-  identifier_start: '[[:alpha:]_]'
-  identifier: '\b{{identifier_start}}[[:alnum:]_]*\b'
-  path: '\\?({{identifier}}\\)*{{identifier}}'
-  logic: \s*(?:&quot;|#|$|(|)|,|.|:|[|]|{|}|~|&lt;|&gt;|==&gt;|&lt;=&gt;|F|T|All|Ex|\\||&amp;)\b
 
 contexts:
   main:
     - include: comments
+    - include: comments-inline
+
     - match: '"'
       scope: punctuation.definition.string.begin.spthy
-
-    # Comments begin with a '//' and finish at the end of the line
-    - match: '//'
-      scope: punctuation.definition.comment.spthy
-      push: line_comment
 
     - match: '\b(axiom|lemma|equations|functions|builtins|protocol|property|theory|begin|end|subsection|section|text|rule|h|sk|pk|Fr|In|Out|fr|in|out|pb|lts|diffie-hellman|symmetric-encryption|asymmetric-encryption|exists-trace|all-traces|enable|assertions|modulo|default_rules|anb-proto|in|let|Fresh|fresh|Public|public|signing|hashing|verify)\b'
       scope: keyword.other.const.spthy
@@ -58,20 +50,6 @@ contexts:
       captures:
         1: comment.line.double-slash.spthy
         2: punctuation.definition.comment.spthy
-
-  line_comment:
-    - meta_scope: comment.line.spthy
-    - match: $
-      pop: true
-
-  double_quoted_string:
-    - meta_scope: string.quoted.double.spthy
-    - match: '\\.'
-      scope: constant.character.escape.spthy
-    - match: '"'
-      scope: punctuation.definition.string.end.spthy
-      pop: true
-
 
   brackets:
     - match: \)
