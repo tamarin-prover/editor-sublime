@@ -7,7 +7,7 @@
 
 This is a [Sublime Text 3](https://www.sublimetext.com/3) plug-in which adds
 support for [Tamarin] Security Protocol Theories (`spty`) syntax highlighting.
-For the latest devlopments see the [Tamarin GitHub] page.
+For the latest developments see the [Tamarin GitHub] page.
 
 It also includes some useful commands, accessed via `CTRL + SHIFT + P` then
 type "*Tamarin*" to see the options available.
@@ -25,8 +25,10 @@ See [Screenshots](SCREENSHOTS.md).
 - [ ] Highlight Script errors in Editor
 - [ ] Highlight Axiom / Lemma Guardedness issues in Editor
 - [ ] Add more colours to Syntax
+- [ ] Add package to [PackageControl.io]
 
 
 
 [Tamarin]:http://www.infsec.ethz.ch/research/software/tamarin.html
 [Tamarin GitHub]:https://github.com/tamarin-prover/tamarin-prover
+[PackageControl.io]:https://packagecontrol.io/
