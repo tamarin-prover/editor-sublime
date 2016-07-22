@@ -96,6 +96,7 @@ class TamarinProveCommand(sublime_plugin.WindowCommand):
                 else:
                     break
         self.window.focus_view(self.output_view)
+        self.output_view.set_syntax_file("Packages/SublimeTamarin/Syntaxes/spthy.sublime-syntax")
         sublime.set_timeout_async(prove, 0)
 
 
