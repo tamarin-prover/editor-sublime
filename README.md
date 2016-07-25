@@ -1,4 +1,9 @@
-# SublimeTamarin
+   _____       _     _ _             _______                         _
+  / ____|     | |   | (_)           |__   __|                       (_)
+ | (___  _   _| |__ | |_ _ __ ___   ___| | __ _ _ __ ___   __ _ _ __ _ _ __
+  \___ \| | | | '_ \| | | '_ ` _ \ / _ \ |/ _` | '_ ` _ \ / _` | '__| | '_ \
+  ____) | |_| | |_) | | | | | | | |  __/ | (_| | | | | | | (_| | |  | | | | |
+ |_____/ \__,_|_.__/|_|_|_| |_| |_|\___|_|\__,_|_| |_| |_|\__,_|_|  |_|_| |_|
 
 *Please be aware that SublimeTamarin is still under active development and as such, several of the features are still implemented in a prototypical manner.*
 *If you experience any problems or have any questions on running any parts of the plug-in please contact:* [Jorden Whitefield](mailto:j.whitefield@surrey.ac.uk?subject=SublimeTamarin)
