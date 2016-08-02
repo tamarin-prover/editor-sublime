@@ -3,5 +3,10 @@
         "keys": ["alt+shift+p"],
         "command": "tamarin_prove",
         "context": [{ "key": "selector", "operator": "equal", "operand": "source.spthy" }]
+    },
+    {
+        "keys": ["alt+shift+t"],
+        "command": "tamarin_check",
+        "context": [{ "key": "selector", "operator": "equal", "operand": "source.spthy" }]
     }
 ]

@@ -123,6 +123,16 @@ class TamarinProveCommand(sublime_plugin.WindowCommand):
         sublime.set_timeout_async(prove, 0)
 
 
+class TamarinCheckCommand(sublime_plugin.WindowCommand):
+    """ Runs tamarin-prover --parse-only with the active script
+        to see if the syntax of spthy file is correct. If errors
+        or guardness issues are found, will highlight in the
+        script tab window.
+    """
+    def is_enabled(self):
+        return is_tamarin_view(self.window.active_view())
+
+
 class TamarinProveInteractiveCommand(sublime_plugin.WindowCommand):
     """ Runs tamarin-prover --prove with the active script
     """
