@@ -78,7 +78,7 @@ class TamarinProveCommand(sublime_plugin.WindowCommand):
         def prove():
             tamarin = find_tamarin_bin("tamarin-prover")
             cmd = tamarin + " --prove " + spthy
-            process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+            process = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 
             print_sublime_tamarin(self)
             self.output_view.set_read_only(False)
@@ -99,9 +99,24 @@ class TamarinProveCommand(sublime_plugin.WindowCommand):
                         sublime.status_message("Tamarin: cancelled")
                         process.kill()
                     self.output_view.set_read_only(False)
-                    # process.communicate()
                 else:
                     break
+
+                line = process.stderr.readline()
+                if line:
+                    self.output_view.run_command('tamarin_insert_text', {
+                            "txt": line.decode("utf-8"),
+                            "scroll_to_end": True,
+                        })
+                    self.output_view.set_read_only(True)
+                    if not self.output_view.window():
+                        sublime.status_message("Tamarin: cancelled")
+                        process.kill()
+                    self.output_view.set_read_only(False)
+                else:
+                    break
+
+            process.communicate()
 
         self.window.focus_view(self.output_view)
         self.output_view.set_syntax_file(SYNTAX_FILE)
