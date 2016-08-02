@@ -14,10 +14,10 @@ contexts:
     - match: '"'
       scope: punctuation.definition.string.begin.spthy
 
-    - match: '\b(axiom|lemma|equations|functions|builtins|protocol|property|theory|begin|end|subsection|section|text|rule|h|sk|pk|Fr|In|Out|fr|in|out|pb|lts|diffie-hellman|symmetric-encryption|asymmetric-encryption|exists-trace|all-traces|enable|assertions|modulo|default_rules|anb-proto|in|let|Fresh|fresh|Public|public|signing|hashing|verify)\b'
+    - match: '\b(axiom|lemma|equations|functions|builtins|protocol|property|theory|begin|end|subsection|section|text|rule|h|sk|pk|Fr|In|Out|fr|in|out|pb|lts|diffie-hellman|symmetric-encryption|asymmetric-encryption|exists-trace|all-traces|enable|assertions|modulo|default_rules|anb-proto|in|let|Fresh|fresh|Public|public|signing|hashing|verify|fst|snd|Eq|aenc|sdec|senc|sdec|sign)\b'
       scope: keyword.other.const.spthy
 
-    - match: '{\||\|}|{|}|\.\.|:|#|<-|<->|==|\!=|<|>|<=|>=|@|&|--\[|\]->|\[|\]'
+    - match: '{\||\|}|{|}|\.\.|:|#|<-|<->|==|\!=|<|>|<=|>=|@|&|--\[|\]->|\[|\]|-->'
       scope: keyword.operator.spthy
 
     - match: '\b(Ex|All|not)\b'
