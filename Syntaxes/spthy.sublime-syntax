@@ -5,6 +5,10 @@ name: Tamarin
 file_extensions:
   - spthy
 scope: source.spthy
+uuid: a6b019cb-75bf-4d9a-aab1-703f6b6d143b
+
+foldingStartMarker: "(?x)\n\t\t /\\*\\*(?!\\*)\n\t\t|^(?![^{]*?//|[^{]*?/\\*(?!.*?\\*/.*?\\{)).*?\\{\\s*($|//|/\\*(?!.*?\\*/.*\\S))\n\t"
+foldingStopMarker: "(?<!\\*)\\*\\*/|^\\s*\\}"
 
 contexts:
   main:
@@ -14,14 +18,12 @@ contexts:
     - match: '"'
       scope: punctuation.definition.string.begin.spthy
 
-    - match: '\b(axiom|lemma|equations|functions|builtins|protocol|property|theory|begin|end|subsection|section|text|rule|h|sk|pk|Fr|In|Out|fr|in|out|pb|lts|diffie-hellman|symmetric-encryption|asymmetric-encryption|exists-trace|all-traces|enable|assertions|modulo|default_rules|anb-proto|in|let|Fresh|fresh|Public|public|signing|hashing|verify|fst|snd|Eq|aenc|sdec|senc|sdec|sign)\b'
-      scope: keyword.other.const.spthy
+    - match: '\b(equations|functions|builtins|protocol|property|theory|begin|end|subsection|section|text|rule|pb|lts|exists-trace|all-traces|enable|assertions|modulo|default_rules|anb-proto|in|let|Fresh|fresh|Public|public)\b'
+      scope: keyword.function.spthy
 
-    - match: '{\||\|}|{|}|\.\.|:|#|<-|<->|==|\!=|<|>|<=|>=|@|&|--\[|\]->|\[|\]|-->'
+    - match: '{\||\|}|{|}|\.\.|:|<-|<->|\!=|<=|>=|--\[|\]->|\[|\]|-->'
       scope: keyword.operator.spthy
 
-    - match: '\b(Ex|All|not)\b'
-      scope: keyword.operator.word.spthy
 
     # Numbers
     - match: '\b(-)?[0-9.]+\b'
@@ -32,6 +34,34 @@ contexts:
       push: brackets
     - match: \)
       scope: invalid.illegal.stray-bracket-end
+
+    - match: "\\b(aenc|sdec|senc|sdec|sign|verify|Eq|eq|hashing|signing|diffie-hellman|symmetric-encryption|asymmetric-encryption|multiset|sk|pk|Fr|In|Out|fr|in|out)\\b"
+      scope: support.function.spthy
+      comment: Tamarin constr keywords
+
+    - match: "\\b(in|let|begin|end)\\b"
+      scope: constant.language.spthy
+      comment: Tamarin decl keywords
+
+    - match: "\\b(axiom|lemma|equations|functions|builtins|protocol|property|subsection|section|text|theory)\\b"
+      scope: keyword.control.spthy
+
+    - match: "([@$~#]|@\\s)([A-Za-z][A-Za-z0-9_]*)"
+      scope: variable.other.spthy
+      comment: Special variables
+
+    - match: "(\\b(F|T|All|Ex|not|)\\b|&|\\||==>|=|==|@|<|>)"
+      scope: constant.language.spthy
+      comment: Tamarin logical operations
+
+      name: variable.spthy
+      begin: "#(define|include)\\s+([A-Za-z0-9_]*)"
+      beginCaptures:
+        '1':
+          name: keyword.spthy
+        '2':
+          name: support.constant.spthy
+      end:
 
 
   comments:
