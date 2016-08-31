@@ -23,6 +23,7 @@ type "*Tamarin*" to see the options available.
 
 - [X] Basic Syntaxes
 - [X] Run Tamarin within Sublime
+- [X] Snippets for Theory, Rule, Axiom and Lemma
 
 See [Screenshots](docs/SCREENSHOTS.md).
 
@@ -31,7 +32,6 @@ See [Screenshots](docs/SCREENSHOTS.md).
 - [ ] Run Tamarin Interactive Prover within Sublime
 - [ ] Highlight Script errors in Editor
 - [ ] Highlight Axiom / Lemma Guardedness issues in Editor
-- [ ] Add more colours to Syntax
 - [ ] Add package to [PackageControl.io]
 
 
