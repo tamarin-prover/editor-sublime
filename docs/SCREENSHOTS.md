@@ -2,6 +2,10 @@
 
 ## Syntax
 
+### Preamble
+
+![Preamble](img/preamble.png "Preamble")
+
 ### Rules
 
 ![Rules](img/rule.png "Rules")
@@ -13,8 +17,3 @@
 ## Menu Options
 
 ![Menu](img/menu.png "Menu")
-
-
-## Prover
-
-![Proof](img/proof.png "Proof")
