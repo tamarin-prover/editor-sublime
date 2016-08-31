@@ -35,8 +35,8 @@ contexts:
     - match: \)
       scope: invalid.illegal.stray-bracket-end
 
-    - match: "\\b(aenc|sdec|senc|sdec|sign|verify|Eq|eq|hashing|signing|diffie-hellman|symmetric-encryption|asymmetric-encryption|multiset|sk|pk|Fr|In|Out|fr|in|out)\\b"
-      scope: support.function.spthy
+    - match: "\\b(aenc|sdec|senc|sdec|sign|verify|Eq|eq|hashing|signing|diffie-hellman|symmetric-encryption|asymmetric-encryption|multiset|bilinear-pairing|sk|pk|Fr|In|Out|fr|in|out)\\b"
+      scope: variable.language.spthy
       comment: Tamarin constr keywords
 
     - match: "\\b(in|let|begin|end)\\b"
@@ -46,22 +46,23 @@ contexts:
     - match: "\\b(axiom|lemma|builtins|protocol|property|subsection|section|text|theory)\\b"
       scope: keyword.control.spthy
 
-    - match: "([@$~#]|@\\s)([A-Za-z][A-Za-z0-9_]*)"
-      scope: variable.other.spthy
-      comment: Special variables
 
     - match: "(\\b(F|T|All|Ex|not|)\\b|&|\\||==>|=|==|<|>)"
       scope: constant.language.spthy
       comment: Tamarin logical operations
 
-      name: variable.spthy
-      begin: "#(define|include)\\s+([A-Za-z0-9_]*)"
-      beginCaptures:
-        '1':
-          name: keyword.spthy
-        '2':
-          name: support.constant.spthy
-      end:
+    - match: "'"
+      captures:
+        0: punctuation.definition.string.begin.spthy
+      push:
+        - meta_scope: string.quoted.single.spthy
+        - match: "'"
+          captures:
+            0: punctuation.definition.string.end.spthy
+          pop: true
+
+    - match: \w+\s*(?=\()
+      scope: support.function.spthy
 
 
   comments:
