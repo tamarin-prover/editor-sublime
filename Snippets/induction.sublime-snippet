@@ -1,0 +1,6 @@
+<snippet>
+    <content><![CDATA[use_induction]]></content>
+    <tabTrigger>use_induction</tabTrigger>
+    <description>Tamarin - Use Induction</description>
+    <scope>source.spthy</scope>
+</snippet>
