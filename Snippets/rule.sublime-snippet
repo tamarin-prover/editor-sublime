@@ -1,0 +1,14 @@
+<snippet>
+    <content><![CDATA[
+rule $1:
+    let
+
+    in
+        [  ]
+      --[  ]->
+        [  ]
+]]></content>
+    <tabTrigger>rule</tabTrigger>
+    <description>Tamarin - Skeleton Rule</description>
+    <scope>source.spthy</scope>
+</snippet>
