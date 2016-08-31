@@ -21,7 +21,7 @@ contexts:
     - match: '\b(equations|functions|builtins|protocol|property|theory|begin|end|subsection|section|text|rule|pb|lts|exists-trace|all-traces|enable|assertions|modulo|default_rules|anb-proto|in|let|Fresh|fresh|Public|public)\b'
       scope: keyword.function.spthy
 
-    - match: '{\||\|}|{|}|\.\.|:|<-|<->|\!=|<=|>=|--\[|\]->|\[|\]|-->'
+    - match: '{\||\|}|{|}|\.\.|:|@|#|<-|<->|\!=|<=|>=|--\[|\]->|\[|\]|-->'
       scope: keyword.operator.spthy
 
 
@@ -43,14 +43,14 @@ contexts:
       scope: constant.language.spthy
       comment: Tamarin decl keywords
 
-    - match: "\\b(axiom|lemma|equations|functions|builtins|protocol|property|subsection|section|text|theory)\\b"
+    - match: "\\b(axiom|lemma|builtins|protocol|property|subsection|section|text|theory)\\b"
       scope: keyword.control.spthy
 
     - match: "([@$~#]|@\\s)([A-Za-z][A-Za-z0-9_]*)"
       scope: variable.other.spthy
       comment: Special variables
 
-    - match: "(\\b(F|T|All|Ex|not|)\\b|&|\\||==>|=|==|@|<|>)"
+    - match: "(\\b(F|T|All|Ex|not|)\\b|&|\\||==>|=|==|<|>)"
       scope: constant.language.spthy
       comment: Tamarin logical operations
 
