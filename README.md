@@ -24,7 +24,7 @@ type "*Tamarin*" to see the options available.
 - [X] Basic Syntaxes
 - [X] Run Tamarin within Sublime
 
-See [Screenshots](SCREENSHOTS.md).
+See [Screenshots](docs/SCREENSHOTS.md).
 
 ## Under Development
 
