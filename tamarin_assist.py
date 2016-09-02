@@ -8,14 +8,15 @@ import subprocess
 
 
 LOCAL = '/usr/local/bin:/usr/local/sbin'
-SYNTAX_FILE = 'Packages/SublimeTamarin/Syntaxes/spthy.sublime-syntax'
+SYNTAX_FILE = 'Packages/TamarinAssist/Syntaxes/spthy.sublime-syntax'
+VERSION = "0.0.1"
 
 os.environ['PATH'] += ':'
 os.environ['PATH'] += LOCAL
 
 
 def settings_get(name, default=None):
-    plugin_settings = sublime.load_settings('Tamarin.sublime-settings')
+    plugin_settings = sublime.load_settings('TamarinAssist.sublime-settings')
     project_settings = None
     if sublime.active_window() and sublime.active_window().active_view():
         project_settings = sublime.active_window().active_view().settings()
@@ -145,13 +146,7 @@ class TamarinProveInteractiveCommand(sublime_plugin.WindowCommand):
 
 def print_sublime_tamarin(self):
 
-    MESSAGE = """   _____       _     _ _             _______                         _       
-  / ____|     | |   | (_)           |__   __|                       (_)      
- | (___  _   _| |__ | |_ _ __ ___   ___| | __ _ _ __ ___   __ _ _ __ _ _ __  
-  \___ \| | | | '_ \| | | '_ ` _ \ / _ \ |/ _` | '_ ` _ \ / _` | '__| | '_ \ 
-  ____) | |_| | |_) | | | | | | | |  __/ | (_| | | | | | | (_| | |  | | | | |
- |_____/ \__,_|_.__/|_|_|_| |_| |_|\___|_|\__,_|_| |_| |_|\__,_|_|  |_|_| |_|
-"""
+    MESSAGE = "TamarinAssist v" + VERSION
 
     self.output_view.set_read_only(False)
     self.output_view.run_command('tamarin_insert_text', {

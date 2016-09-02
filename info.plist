@@ -7,9 +7,9 @@
     <key>contactName</key>
     <string>Jorden Whitefield</string>
     <key>description</key>
-    <string>Bundle that adds syntax support for the Tamarin Prover.</string>
+    <string>Bundle that adds support for the Tamarin Prover.</string>
     <key>name</key>
-    <string>Tamarin</string>
+    <string>TamarinAssist</string>
     <key>uuid</key>
     <string>A6B019CB-75BF-4D9A-AAB1-703F6B6D143B</string>
 </dict>
