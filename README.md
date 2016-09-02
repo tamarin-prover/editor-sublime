@@ -6,7 +6,7 @@
 ## Introduction
 
 This is a [Sublime Text 3](https://www.sublimetext.com/3) plug-in which adds
-support for [Tamarin] Security Protocol Theories (`spty`) syntax highlighting.
+support for [Tamarin] Security Protocol Theories (`spthy`) syntax highlighting.
 For the latest developments see the [Tamarin GitHub] page.
 
 It also includes some useful commands, accessed via `CTRL + SHIFT + P` then
