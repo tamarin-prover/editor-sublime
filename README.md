@@ -12,6 +12,8 @@ For the latest developments see the [Tamarin GitHub] page.
 It also includes some useful commands, accessed via `CTRL + SHIFT + P` then
 type "*Tamarin*" to see the options available.
 
+[Install Notes]
+
 ## Features
 
 - [X] Basic Syntaxes
@@ -31,4 +33,5 @@ See [Screenshots](docs/SCREENSHOTS.md).
 
 [Tamarin]:http://www.infsec.ethz.ch/research/software/tamarin.html
 [Tamarin GitHub]:https://github.com/tamarin-prover/tamarin-prover
+[Install Notes]:INSTALL.md
 [PackageControl.io]:https://packagecontrol.io/
