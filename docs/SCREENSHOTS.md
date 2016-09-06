@@ -1,5 +1,10 @@
 # Screenshots
 
+## Autocomplete
+
+![Autocomplete](img/autocomplete.gif)
+
+
 ## Syntax
 
 ### Preamble
