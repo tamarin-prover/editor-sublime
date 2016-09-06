@@ -29,11 +29,10 @@ See [Screenshots](docs/SCREENSHOTS.md).
 
 ## Under Development
 
-- [ ] Run Tamarin Interactive Prover within Sublime
 - [ ] Highlight Script errors in Editor
 - [ ] Highlight Axiom / Lemma Guardedness issues in Editor
 - [ ] Add package to [PackageControl.io]
-
+- ~~[ ] Run Tamarin Interactive Prover within Sublime~~
 
 
 [Tamarin]:http://www.infsec.ethz.ch/research/software/tamarin.html
