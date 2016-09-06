@@ -134,16 +134,6 @@ class TamarinCheckCommand(sublime_plugin.WindowCommand):
         return is_tamarin_view(self.window.active_view())
 
 
-class TamarinProveInteractiveCommand(sublime_plugin.WindowCommand):
-    """ Runs tamarin-prover --prove with the active script
-    """
-    def is_enabled(self):
-        return is_tamarin_view(self.window.active_view())
-
-    def run(self):
-        sublime.status_message("DEVELOPMENT")
-
-
 def print_sublime_tamarin(self):
 
     MESSAGE = "TamarinAssist v" + VERSION
