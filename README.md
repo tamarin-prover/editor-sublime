@@ -1,6 +1,6 @@
 # TamarinAssist
 
-[![Trello](https://material.uplabs.com/assets/jobs/trello-2c8e1a08cb265d3fac4874d855474b1d2740dd5cfe7daf2ce194917b103ea4ad.png)](https://trello.com/tamarinassist)
+<a href="https://trello.com/tamarinassist"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Trello-logo-blue.svg/2000px-Trello-logo-blue.svg.png" width="10%" height="10%"></a>
 
 *Please be aware that TamarinAssist is still under active development and as such, several of the features are still implemented in a prototypical manner.*
 *If you experience any problems or have any questions on running any parts of the plug-in please open an [issue on GitHub](https://github.com/lordqwerty/TamarinAssist/issues).
