@@ -1,4 +1,4 @@
-Changes in 0.1.0
+Changes in 0.1.0-alpha
 ==================
 
 Initial pre-release of the TamarinAssist plugin for Sublime Text 3.
