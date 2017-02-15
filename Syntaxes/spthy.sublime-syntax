@@ -43,7 +43,7 @@ contexts:
       scope: constant.language.spthy
       comment: Tamarin decl keywords
 
-    - match: "\\b(axiom|lemma|builtins|protocol|property|subsection|section|text|theory)\\b"
+    - match: "\\b(axiom|restriction|lemma|source|builtins|protocol|property|subsection|section|text|theory)\\b"
       scope: keyword.control.spthy
 
 
