@@ -14,30 +14,30 @@ support for [Tamarin] Security Protocol Theories (`spthy`):
 + Autocompltion (Snippets)
 + Run Tamarin functions within Sublime
 
+See [Screenshots](docs/SCREENSHOTS.md) for how TamarinAssist looks and works.
+
 For the latest developments see the [Tamarin GitHub] page.
 
 It also includes some useful commands, accessed via `CTRL + SHIFT + P` then
 type "*Tamarin*" to see the options available.
-
-[Install Notes]
 
 ## Features
 
 - [X] Basic Syntaxes
 - [X] Run Tamarin within Sublime
 - [X] Snippets for Theory, Rule, Axiom and Lemma
-
-See [Screenshots](docs/SCREENSHOTS.md).
+- [X] Add package to [PackageControl.io]
 
 ## Under Development
 
 - [ ] Highlight Script errors in Editor
 - [ ] Highlight Axiom / Lemma Guardedness issues in Editor
-- [ ] Add package to [PackageControl.io]
-- ~~[ ] Run Tamarin Interactive Prover within Sublime~~
 
+## Package Control
+
+[PackageControl.io TamarinAssist](https://packagecontrol.io/packages/TamarinAssist) can now be installed via the sublime package manager. See the
+[install](https://packagecontrol.io/installation) and [usage](https://packagecontrol.io/docs/usage) documentation, then search and install TamarinAssist.
 
 [Tamarin]:http://www.infsec.ethz.ch/research/software/tamarin.html
 [Tamarin GitHub]:https://github.com/tamarin-prover/tamarin-prover
-[Install Notes]:INSTALL.md
 [PackageControl.io]:https://packagecontrol.io/

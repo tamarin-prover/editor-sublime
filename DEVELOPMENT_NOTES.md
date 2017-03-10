@@ -1,5 +1,6 @@
-# Installation Instructions
+# Development Instructions
 
+These notes go about describing how to setup and develop TamarinAssist locally.
 
 ## Manual
 
@@ -20,8 +21,3 @@ Please check back to see what changes have been made so you can perform a
 `git pull`.
 
 *Please note: Windows will be able to perform syntax highlighting and autocompletion but not built in functions. This is because the Tamarin Prover is not supported under Windows.*
-
-## Package Control
-
-Plugin is currently changing and being updated frequently. Therefore not
-currently in PackageControl.io until a first stable build is established.
