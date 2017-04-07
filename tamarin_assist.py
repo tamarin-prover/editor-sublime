@@ -19,8 +19,6 @@ VERSION = "0.0.1"
 os.environ['PATH'] += ':'
 os.environ['PATH'] += LOCAL
 
-io_q = Queue()
-
 
 def stream_watcher(identifier, stream):
 
@@ -42,32 +40,6 @@ def settings_get(name, default=None):
 
     setting = project_settings.get(name, plugin_settings.get(name, default))
     return setting
-
-
-def printer(self):
-
-    while True:
-        try:
-            # Block for 1 second.
-            item = io_q.get(True, 1)
-        except Empty:
-            # No output in either streams for a second. Are we done?
-            if proc.poll() is not None:
-                break
-        else:
-            identifier, line = item
-            if line:
-                self.output_view.run_command('tamarin_insert_text', {
-                        "txt": line.decode("utf-8"),
-                        "scroll_to_end": True,
-                    })
-                self.output_view.set_read_only(True)
-                if not self.output_view.window():
-                    sublime.status_message("Tamarin: cancelled")
-                    process.kill()
-                self.output_view.set_read_only(False)
-            else:
-                break
 
 
 def is_mac():
@@ -101,9 +73,11 @@ class TamarinInsertTextCommand(sublime_plugin.TextCommand):
         self.view.show(self.view.size())
 
 
-class TamarinCommand(sublime_plugin.WindowCommand):
+class TamarinProveCommand(sublime_plugin.WindowCommand):
     """ Runs tamarin-prover --prove with the active script
     """
+    io_q = Queue()
+
     def is_enabled(self):
         return is_tamarin_view(self.window.active_view())
 
@@ -134,11 +108,36 @@ class TamarinCommand(sublime_plugin.WindowCommand):
                 "scroll_to_end": True,
             })
 
-            Thread(target=printer(self), name='printer').start()
+            Thread(target=printer(proc), name='printer').start()
 
         self.window.focus_view(self.output_view)
         self.output_view.set_syntax_file(SYNTAX_FILE)
         sublime.set_timeout_async(prove, 0)
+
+        def printer(proc):
+
+            while True:
+                try:
+                    # Block for 1 second.
+                    item = io_q.get(True, 1)
+                except Empty:
+                    # No output in either streams for a second. Are we done?
+                    if proc.poll() is not None:
+                        break
+                else:
+                    identifier, line = item
+                    if line:
+                        self.output_view.run_command('tamarin_insert_text', {
+                                "txt": line.decode("utf-8"),
+                                "scroll_to_end": True,
+                            })
+                        self.output_view.set_read_only(True)
+                        if not self.output_view.window():
+                            sublime.status_message("Tamarin: cancelled")
+                            process.kill()
+                        self.output_view.set_read_only(False)
+                    else:
+                        break
 
 
 class TamarinCheckCommand(sublime_plugin.WindowCommand):
@@ -147,6 +146,8 @@ class TamarinCheckCommand(sublime_plugin.WindowCommand):
         or guardness issues are found, will highlight in the
         script tab window.
     """
+    io_q = Queue()
+
     def is_enabled(self):
         return is_tamarin_view(self.window.active_view())
 
@@ -177,11 +178,36 @@ class TamarinCheckCommand(sublime_plugin.WindowCommand):
                 "scroll_to_end": True,
             })
 
-            Thread(target=printer(self), name='printer').start()
+            Thread(target=printer(proc), name='printer').start()
 
         self.window.focus_view(self.output_view)
         self.output_view.set_syntax_file(SYNTAX_FILE)
         sublime.set_timeout_async(typecheck, 0)
+
+        def printer(proc):
+
+            while True:
+                try:
+                    # Block for 1 second.
+                    item = io_q.get(True, 1)
+                except Empty:
+                    # No output in either streams for a second. Are we done?
+                    if proc.poll() is not None:
+                        break
+                else:
+                    identifier, line = item
+                    if line:
+                        self.output_view.run_command('tamarin_insert_text', {
+                                "txt": line.decode("utf-8"),
+                                "scroll_to_end": True,
+                            })
+                        self.output_view.set_read_only(True)
+                        if not self.output_view.window():
+                            sublime.status_message("Tamarin: cancelled")
+                            process.kill()
+                        self.output_view.set_read_only(False)
+                    else:
+                        break
 
 
 def print_sublime_tamarin(self):
