@@ -7,7 +7,7 @@ import platform
 import time
 from subprocess import Popen, PIPE
 from queue import Queue, Empty
-import threading
+from threading import Thread
 import traceback
 import time
 
