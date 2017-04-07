@@ -27,6 +27,7 @@ type "*Tamarin*" to see the options available.
 - [X] Run Tamarin within Sublime
 - [X] Snippets for Theory, Rule, Axiom and Lemma
 - [X] Add package to [PackageControl.io]
+- [X] Configure `SAPIC` path
 
 ## Under Development
 
