@@ -4,4 +4,6 @@
     // the path to the directory containing the tamarin-prover binary.
     "tamarin_bin_dir": "",
 
+    "sapic_bin_dir": "",
+
 }

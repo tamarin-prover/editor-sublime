@@ -1,10 +1,15 @@
 import sublime
 import sublime_plugin
 import json
+import sys
 import os
 import platform
 import time
-import subprocess
+from subprocess import Popen, PIPE
+from queue import Queue, Empty
+import threading
+import traceback
+import time
 
 
 LOCAL = '/usr/local/bin:/usr/local/sbin'
@@ -13,6 +18,17 @@ VERSION = "0.0.1"
 
 os.environ['PATH'] += ':'
 os.environ['PATH'] += LOCAL
+
+io_q = Queue()
+
+
+def stream_watcher(identifier, stream):
+
+    for line in stream:
+        io_q.put((identifier, line))
+
+    if not stream.closed:
+        stream.close()
 
 
 def settings_get(name, default=None):
@@ -26,6 +42,32 @@ def settings_get(name, default=None):
 
     setting = project_settings.get(name, plugin_settings.get(name, default))
     return setting
+
+
+def printer(self):
+
+    while True:
+        try:
+            # Block for 1 second.
+            item = io_q.get(True, 1)
+        except Empty:
+            # No output in either streams for a second. Are we done?
+            if proc.poll() is not None:
+                break
+        else:
+            identifier, line = item
+            if line:
+                self.output_view.run_command('tamarin_insert_text', {
+                        "txt": line.decode("utf-8"),
+                        "scroll_to_end": True,
+                    })
+                self.output_view.set_read_only(True)
+                if not self.output_view.window():
+                    sublime.status_message("Tamarin: cancelled")
+                    process.kill()
+                self.output_view.set_read_only(False)
+            else:
+                break
 
 
 def is_mac():
@@ -59,7 +101,7 @@ class TamarinInsertTextCommand(sublime_plugin.TextCommand):
         self.view.show(self.view.size())
 
 
-class TamarinProveCommand(sublime_plugin.WindowCommand):
+class TamarinCommand(sublime_plugin.WindowCommand):
     """ Runs tamarin-prover --prove with the active script
     """
     def is_enabled(self):
@@ -77,9 +119,13 @@ class TamarinProveCommand(sublime_plugin.WindowCommand):
 
     def _runner(self, spthy):
         def prove():
-            tamarin = find_tamarin_bin("tamarin-prover")
+            tamarin = find_bin("tamarin_bin_dir", "tamarin-prover")
+            sapic = find_bin("sapic_bin_dir", "sapic")
             cmd = tamarin + " --prove " + spthy
-            process = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+            proc = Popen(cmd, stdout=PIPE, stderr=PIPE, shell=True)
+
+            Thread(target=stream_watcher, name='stdout-watcher', args=('STDOUT', proc.stdout)).start()
+            Thread(target=stream_watcher, name='stderr-watcher', args=('STDERR', proc.stderr)).start()
 
             print_sublime_tamarin(self)
             self.output_view.set_read_only(False)
@@ -88,36 +134,7 @@ class TamarinProveCommand(sublime_plugin.WindowCommand):
                 "scroll_to_end": True,
             })
 
-            while True:
-                line = process.stdout.readline()
-                if line:
-                    self.output_view.run_command('tamarin_insert_text', {
-                            "txt": line.decode("utf-8"),
-                            "scroll_to_end": True,
-                        })
-                    self.output_view.set_read_only(True)
-                    if not self.output_view.window():
-                        sublime.status_message("Tamarin: cancelled")
-                        process.kill()
-                    self.output_view.set_read_only(False)
-                else:
-                    break
-
-                line = process.stderr.readline()
-                if line:
-                    self.output_view.run_command('tamarin_insert_text', {
-                            "txt": line.decode("utf-8"),
-                            "scroll_to_end": True,
-                        })
-                    self.output_view.set_read_only(True)
-                    if not self.output_view.window():
-                        sublime.status_message("Tamarin: cancelled")
-                        process.kill()
-                    self.output_view.set_read_only(False)
-                else:
-                    break
-
-            process.communicate()
+            Thread(target=printer(self), name='printer').start()
 
         self.window.focus_view(self.output_view)
         self.output_view.set_syntax_file(SYNTAX_FILE)
@@ -133,6 +150,39 @@ class TamarinCheckCommand(sublime_plugin.WindowCommand):
     def is_enabled(self):
         return is_tamarin_view(self.window.active_view())
 
+    def run(self):
+        view = self.window.active_view()
+        if view is None:
+            return
+        self.output_view = self.window.new_file()
+        self.output_view.set_name("Tamarin Typecheck")
+        self.output_view.set_scratch(True)
+        self.output_view.set_read_only(True)
+        self._runner(get_spthy_file(view))
+
+    def _runner(self, spthy):
+        def typecheck():
+            tamarin = find_bin("tamarin_bin_dir", "tamarin-prover")
+            sapic = find_bin("sapic_bin_dir", "sapic")
+            cmd = tamarin + " --parse-only " + spthy
+            proc = Popen(cmd, stdout=PIPE, stderr=PIPE, shell=True)
+
+            Thread(target=stream_watcher, name='stdout-watcher', args=('STDOUT', proc.stdout)).start()
+            Thread(target=stream_watcher, name='stderr-watcher', args=('STDERR', proc.stderr)).start()
+
+            print_sublime_tamarin(self)
+            self.output_view.set_read_only(False)
+            self.output_view.run_command('tamarin_insert_text', {
+                "txt": "$ %s \n\n" % cmd,
+                "scroll_to_end": True,
+            })
+
+            Thread(target=printer(self), name='printer').start()
+
+        self.window.focus_view(self.output_view)
+        self.output_view.set_syntax_file(SYNTAX_FILE)
+        sublime.set_timeout_async(typecheck, 0)
+
 
 def print_sublime_tamarin(self):
 
@@ -145,21 +195,18 @@ def print_sublime_tamarin(self):
     })
 
 
-def find_tamarin_bin(binary):
+def find_bin(name, binary):
     def is_exe(binpath):
         return os.path.isfile(binpath) and os.access(binpath, os.X_OK)
 
     search_paths = []
-    setting_path = settings_get("tamarin_bin_dir", None)
+    setting_path = settings_get(name, None)
     if setting_path is not None:
         search_paths.append(setting_path)
 
     if is_mac():
         search_paths += os.getenv("PATH").split(os.pathsep)
         search_paths += ["~/.local/bin/"]
-    elif is_windows():
-        binary += ".exe"
-        search_paths += []
     elif is_linux():
         search_paths += os.getenv("PATH").split(os.pathsep)
         search_paths += ["~/.local/bin/"]
@@ -170,6 +217,6 @@ def find_tamarin_bin(binary):
         if is_exe(exe_file):
             return exe_file
 
-    raise Exception("Cannot find %s executable in %s. Set tamarin_bin_dir."
+    raise Exception("Cannot find %s executable in %s. Set %s"
         \
-                    % (binary, search_paths))
+                    % (binary, search_paths, name))
