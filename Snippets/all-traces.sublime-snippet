@@ -1,0 +1,6 @@
+<snippet>
+    <content><![CDATA[all-traces]]></content>
+    <tabTrigger>all-traces</tabTrigger>
+    <description>Tamarin - All Traces</description>
+    <scope>source.spthy</scope>
+</snippet>
