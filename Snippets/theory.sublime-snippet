@@ -1,0 +1,24 @@
+<snippet>
+    <content><![CDATA[
+/*
+ *  Author: $TM_FULLNAME
+ *  Model Name: $TM_FILENAME
+ *  Status: DEVELOPMENTAL
+ *
+ *  Comments:
+ */
+
+theory $1
+begin
+
+builtins: $2
+functions: $3
+equations: $4
+
+
+
+end
+]]></content>
+    <tabTrigger>theory</tabTrigger>
+    <description>Tamarin - Skeleton Protocol Theory</description>
+</snippet>

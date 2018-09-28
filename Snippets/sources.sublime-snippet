@@ -1,0 +1,6 @@
+<snippet>
+    <content><![CDATA[sources]]></content>
+    <tabTrigger>sources</tabTrigger>
+    <description>Tamarin - Sources</description>
+    <scope>source.spthy</scope>
+</snippet>

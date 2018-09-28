@@ -1,0 +1,17 @@
+{
+    "folders":
+    [
+        {
+            "file_exclude_patterns":
+            [
+
+            ],
+            "path": "."
+        }
+    ],
+    "settings":
+    {
+        "tab_size": 2,
+        "translate_spaces_to_tabs": true
+    }
+}

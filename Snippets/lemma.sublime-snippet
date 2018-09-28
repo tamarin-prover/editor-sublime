@@ -1,0 +1,11 @@
+<snippet>
+    <content><![CDATA[
+lemma $1:
+  "
+
+  "
+]]></content>
+    <tabTrigger>lemma</tabTrigger>
+    <description>Tamarin - Skeleton Lemma</description>
+    <scope>source.spthy</scope>
+</snippet>
