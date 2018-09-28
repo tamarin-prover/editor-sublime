@@ -1,0 +1,6 @@
+<snippet>
+    <content><![CDATA[exists-trace]]></content>
+    <tabTrigger>exists-trace</tabTrigger>
+    <description>Tamarin - Exists Trace</description>
+    <scope>source.spthy</scope>
+</snippet>

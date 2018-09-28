@@ -1,0 +1,14 @@
+[
+    {
+        "caption": "Tamarin: Prove",
+        "command": "tamarin_prove"
+    },
+    {
+        "caption": "Tamarin: Prove Interactive",
+        "command": "tamarin_prove_interactive"
+    },
+    {
+        "caption": "Tamarin: Typecheck",
+        "command": "tamarin_check"
+    }
+]

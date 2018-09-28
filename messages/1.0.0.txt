@@ -1,0 +1,6 @@
+Changes in 1.0.0
+================
+
+Support for discovring SAPIC binary.
+
+Popen now threaded and handled better.

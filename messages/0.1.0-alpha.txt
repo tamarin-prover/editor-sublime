@@ -1,0 +1,15 @@
+Changes in 0.1.0-alpha
+==================
+
+Initial pre-release of the TamarinAssist plugin for Sublime Text 3.
+This includes support for:
+
+* Highlighting support in Tamarin for Keywords, Logic, Functions and your own
+  Facts.
+* Compatible with all your favourite Sublime Text Colour themes.
+* Tab autocompletion
+* Snippets to get theories written quickly.
+* Prover integrated into Sublime.
+
+
+
