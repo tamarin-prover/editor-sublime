@@ -12,20 +12,20 @@
                 "children":
                 [
                     {
-                        "caption": "TamarinAssist",
+                        "caption": "editor-sublime",
                         "children":
                         [
                             {
                                 "command": "open_file", "args":
                                 {
-                                    "file": "${packages}/TamarinAssist/Tamarin.sublime-settings"
+                                    "file": "${packages}/editor-sublime/TamarinProver.sublime-settings"
                                 },
                                 "caption": "Settings – Default"
                             },
                             {
                                 "command": "open_file", "args":
                                 {
-                                    "file": "${packages}/User/TamarinAssist.sublime-settings"
+                                    "file": "${packages}/User/TamarinProver.sublime-settings"
                                 },
                                 "caption": "Settings – User"
                             },

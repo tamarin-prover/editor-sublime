@@ -26,19 +26,45 @@ type "*Tamarin*" to see the options available.
 
 - [X] Basic Syntaxes
 - [X] Run Tamarin within Sublime
-- [X] Snippets for Theory, Rule, Axiom and Lemma
-- [X] Add package to [PackageControl.io]
+- [X] Snippets for Theory, Rule, Restriction and Lemma
 - [X] Configure `SAPIC` path
 
 ## Under Development
 
+- [ ] Add package to [PackageControl.io]
 - [ ] Highlight Script errors in Editor
 - [ ] Highlight Restriction / Lemma Guardedness issues in Editor
 
-## Package Control
+## Installation
 
-[PackageControl.io](https://packagecontrol.io/packages/) can now be installed via the sublime package manager. See the
-[install](https://packagecontrol.io/installation) and [usage](https://packagecontrol.io/docs/usage) documentation.
+### Manual
+
+### OS X
+
+```bash
+$ git clone https://github.com/tamarin-prover/editor-sublime.git
+$ ln -s `pwd`/editor-sublime ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/
+```
+
+### Linux
+
+```bash
+$ git clone https://github.com/tamarin-prover/editor-sublime.git
+$ ln -s `pwd`/editor-sublime ~/.config/sublime-text-3/Packages/
+```
+
+### Windows
+
+On Windows, you can use directory junctions instead of symlinks (symlinks require administrative rights; directory junctions don't):
+```powershell
+# Using PowerShell
+PS> git clone https://github.com/tamarin-prover/editor-sublime.git
+PS> cmd /c mklink /J "$env:APPDATA/Sublime Text 3/Packages/editor-sublime" (convert-path ./editor-sublime)
+```
+
+### Package Control
+
+[PackageControl.io](https://packagecontrol.io/packages/) currently in development and hope to bring this installation method back very soon.
 
 [Tamarin]:https://tamarin-prover.github.io/
 [Tamarin GitHub]:https://github.com/tamarin-prover/tamarin-prover

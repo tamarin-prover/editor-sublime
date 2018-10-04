@@ -2,7 +2,7 @@
     <content><![CDATA[
 rule $1:
   let
-
+    
   in
     [  ]
   --[  ]->

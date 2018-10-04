@@ -1,9 +1,9 @@
 <snippet>
     <content><![CDATA[
 restriction $1:
-  "
-
-  "
+"
+    
+"
 ]]></content>
     <tabTrigger>restriction</tabTrigger>
     <description>Tamarin - Skeleton restriction</description>

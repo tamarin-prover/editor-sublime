@@ -1,0 +1,6 @@
+<snippet>
+    <content><![CDATA[hide_lemma=]]></content>
+    <tabTrigger>hide_lemma</tabTrigger>
+    <description>Tamarin - Hide Lemma</description>
+    <scope>source.spthy</scope>
+</snippet>

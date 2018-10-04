@@ -8,7 +8,7 @@
         "command": "tamarin_prove_interactive"
     },
     {
-        "caption": "Tamarin: Typecheck",
+        "caption": "Tamarin: Check",
         "command": "tamarin_check"
     }
 ]
