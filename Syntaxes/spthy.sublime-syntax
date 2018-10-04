@@ -35,7 +35,7 @@ contexts:
     - match: \)
       scope: invalid.illegal.stray-bracket-end
 
-    - match: "\\b(aenc|sdec|senc|sdec|sign|verify|Eq|eq|hashing|signing|diffie-hellman|symmetric-encryption|asymmetric-encryption|multiset|bilinear-pairing|h|H|sk|pk|Fr|In|Out|fr|in|out)\\b"
+    - match: "\\b(aenc|adec|senc|sdec|sign|verify|Eq|eq|hashing|signing|revealing-signing|diffie-hellman|symmetric-encryption|asymmetric-encryption|multiset|bilinear-pairing|h|H|sk|pk|Fr|In|Out|IN|OUT)\\b"
       scope: variable.language.spthy
       comment: Tamarin constr keywords
 
@@ -43,7 +43,7 @@ contexts:
       scope: constant.language.spthy
       comment: Tamarin decl keywords
 
-    - match: "\\b(axiom|restriction|lemma|source|builtins|protocol|property|subsection|section|text|theory)\\b"
+    - match: "\\b(axiom|restriction|lemma|sources|use_induction|reuse|hide_lemma|left|right|builtins|protocol|property|subsection|section|text|theory)\\b"
       scope: keyword.control.spthy
 
 

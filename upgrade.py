@@ -1,7 +1,7 @@
 import sys
 
 
-package_name = 'TamarinAssist'
+package_name = 'TamarinProver'
 
 
 def plugin_loaded():

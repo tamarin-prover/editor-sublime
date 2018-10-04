@@ -1,0 +1,6 @@
+<snippet>
+    <content><![CDATA[reuse]]></content>
+    <tabTrigger>reuse</tabTrigger>
+    <description>Tamarin - Reuse</description>
+    <scope>source.spthy</scope>
+</snippet>

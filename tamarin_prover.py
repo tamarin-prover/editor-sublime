@@ -13,7 +13,7 @@ import time
 
 
 LOCAL = '/usr/local/bin:/usr/local/sbin'
-SYNTAX_FILE = 'Packages/TamarinAssist/Syntaxes/spthy.sublime-syntax'
+SYNTAX_FILE = 'Packages/editor-sublime/Syntaxes/spthy.sublime-syntax'
 VERSION = "0.0.1"
 
 os.environ['PATH'] += ':'
@@ -30,7 +30,7 @@ def stream_watcher(identifier, stream):
 
 
 def settings_get(name, default=None):
-    plugin_settings = sublime.load_settings('TamarinAssist.sublime-settings')
+    plugin_settings = sublime.load_settings('TamarinProver.sublime-settings')
     project_settings = None
     if sublime.active_window() and sublime.active_window().active_view():
         project_settings = sublime.active_window().active_view().settings()
@@ -156,7 +156,7 @@ class TamarinCheckCommand(sublime_plugin.WindowCommand):
         if view is None:
             return
         self.output_view = self.window.new_file()
-        self.output_view.set_name("Tamarin Typecheck")
+        self.output_view.set_name("Tamarin Check")
         self.output_view.set_scratch(True)
         self.output_view.set_read_only(True)
         self._runner(get_spthy_file(view))
@@ -212,7 +212,7 @@ class TamarinCheckCommand(sublime_plugin.WindowCommand):
 
 def print_sublime_tamarin(self):
 
-    MESSAGE = "TamarinAssist v" + VERSION
+    MESSAGE = "TamarinProver v" + VERSION
 
     self.output_view.set_read_only(False)
     self.output_view.run_command('tamarin_insert_text', {

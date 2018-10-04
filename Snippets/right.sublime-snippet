@@ -1,0 +1,6 @@
+<snippet>
+    <content><![CDATA[right]]></content>
+    <tabTrigger>right</tabTrigger>
+    <description>Tamarin - Right</description>
+    <scope>source.spthy</scope>
+</snippet>
