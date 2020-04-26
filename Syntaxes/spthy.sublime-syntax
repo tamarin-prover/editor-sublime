@@ -35,7 +35,7 @@ contexts:
     - match: \)
       scope: invalid.illegal.stray-bracket-end
 
-    - match: "\\b(aenc|adec|senc|sdec|sign|verify|Eq|eq|hashing|signing|revealing-signing|diffie-hellman|symmetric-encryption|asymmetric-encryption|multiset|bilinear-pairing|h|H|sk|pk|Fr|In|Out|IN|OUT)\\b"
+    - match: "\\b(aenc|adec|senc|sdec|sign|verify|revealVerify|revealSign|getMessage|true|Eq|eq|hashing|signing|revealing-signing|diffie-hellman|symmetric-encryption|asymmetric-encryption|multiset|bilinear-pairing|h|H|sk|pk|Fr|In|Out|IN|OUT)\\b"
       scope: variable.language.spthy
       comment: Tamarin constr keywords
 
